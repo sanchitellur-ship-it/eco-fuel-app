@@ -49,9 +49,32 @@ if 'df' in locals():
     with col1:
         st.markdown("### ⛽ Fuel Consumption Over Time")
         fig, ax = plt.subplots(figsize=(6,4))
-        sns.lineplot(data=df, x="Date", y="Fuel_Consumption", ax=ax, color="#1ABC9C", linewidth=2.5)
-        ax.set_title("Fuel Consumption Trend", fontsize=14, color="#1ABC9C")
-        st.pyplot(fig)
+        import matplotlib.dates as mdates
+
+# Fuel consumption plot
+fig, ax = plt.subplots(figsize=(6,4))
+sns.lineplot(data=df, x="Date", y="Fuel_Consumption", ax=ax, color="#1ABC9C", linewidth=2.5)
+ax.set_title("Fuel Consumption Trend", fontsize=14, color="#1ABC9C")
+
+# Format x-axis dates
+ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))  # e.g. Aug 01
+plt.xticks(rotation=45)
+
+st.pyplot(fig)
+
+# Fuel cost plot
+fig2, ax2 = plt.subplots(figsize=(6,4))
+sns.lineplot(data=df, x="Date", y="Cost", ax=ax2, color="#E74C3C", linewidth=2.5)
+ax2.set_title("Fuel Cost Trend", fontsize=14, color="#E74C3C")
+
+# Format x-axis dates
+ax2.xaxis.set_major_locator(mdates.AutoDateLocator())
+ax2.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+plt.xticks(rotation=45)
+
+st.pyplot(fig2)
+
 
     # Fuel cost plot
     with col2:
