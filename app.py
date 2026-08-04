@@ -87,25 +87,28 @@ with tab3:
         df = pd.read_csv("fuel_data.csv")
         st.markdown("### 📊 Summary Statistics")
 
-        # Calculate key stats
+        # Calculate only the values you want
         avg_fuel = df['Fuel_Consumption'].mean()
         avg_cost = df['Cost'].mean()
         max_distance = df['Distance'].max()
         min_distance = df['Distance'].min()
-        std_fuel = df['Fuel_Consumption'].std()
 
         # Show metrics in cards
-        col1, col2, col3, col4, col5 = st.columns(5)
+        col1, col2, col3, col4 = st.columns(4)
         col1.metric("Avg Fuel Consumption", f"{avg_fuel:.2f} L")
         col2.metric("Avg Cost", f"₹{avg_cost:.0f}")
         col3.metric("Max Distance", f"{max_distance:.0f} km")
         col4.metric("Min Distance", f"{min_distance:.0f} km")
-        col5.metric("Fuel Std Dev", f"{std_fuel:.2f}")
 
-        # Show full stats table with styling
-        st.markdown("### 📑 Detailed Table")
-        stats = df.describe().round(2)
-        st.dataframe(stats.style.background_gradient(cmap="Blues"))
+        # Clean table
+        st.markdown("### 📑 Clean Table")
+        clean_stats = {
+            "Avg Fuel Consumption (L)": round(avg_fuel, 2),
+            "Avg Cost (₹)": round(avg_cost, 0),
+            "Max Distance (km)": int(max_distance),
+            "Min Distance (km)": int(min_distance)
+        }
+        st.table(pd.DataFrame(clean_stats, index=["Values"]))
 
     except FileNotFoundError:
         st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
@@ -115,4 +118,3 @@ with tab4:
     st.markdown("### 🔗 GitHub Repository")
     st.write("View the source code and contribute here:")
     st.markdown("[Eco Fuel App Repository](https://github.com/sanchitellur-ship-it/eco-fuel-app)")
-
