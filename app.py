@@ -48,5 +48,51 @@ with tab2:
             st.markdown("### ⛽ Fuel Consumption Over Time")
             fig, ax = plt.subplots(figsize=(6,4))
             sns.lineplot(data=df, x="Date", y="Fuel_Consumption", ax=ax, color="#1ABC9C", linewidth=2.5)
-            ax.set_title("Fuel Consumption Trend
+            ax.set_title("Fuel Consumption Trend", fontsize=14, color="#1ABC9C")
+
+            # Format x-axis dates
+            ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+            ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+            plt.xticks(rotation=45)
+
+            st.pyplot(fig)
+
+        # Fuel cost plot
+        with col2:
+            st.markdown("### 💰 Fuel Cost Over Time")
+            fig2, ax2 = plt.subplots(figsize=(6,4))
+            sns.lineplot(data=df, x="Date", y="Cost", ax=ax2, color="#E74C3C", linewidth=2.5)
+            ax2.set_title("Fuel Cost Trend", fontsize=14, color="#E74C3C")
+
+            # Format x-axis dates
+            ax2.xaxis.set_major_locator(mdates.AutoDateLocator())
+            ax2.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
+            plt.xticks(rotation=45)
+
+            st.pyplot(fig2)
+
+        # Scatter plot
+        st.markdown("### 🚘 Distance vs Fuel Consumption")
+        fig3, ax3 = plt.subplots(figsize=(8,5))
+        sns.scatterplot(data=df, x="Distance", y="Fuel_Consumption", ax=ax3, color="#9B59B6", s=80)
+        ax3.set_title("Distance vs Fuel Consumption", fontsize=14, color="#9B59B6")
+        st.pyplot(fig3)
+
+    except FileNotFoundError:
+        st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
+
+# --- Statistics Tab ---
+with tab3:
+    try:
+        df = pd.read_csv("fuel_data.csv")
+        st.markdown("### 📊 Summary Statistics")
+        st.write(df.describe())
+    except FileNotFoundError:
+        st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
+
+# --- GitHub Tab ---
+with tab4:
+    st.markdown("### 🔗 GitHub Repository")
+    st.write("View the source code and contribute here:")
+    st.markdown("[Eco Fuel App Repository](https://github.com/sanchitellur-ship-it/eco-fuel-app)")
 
