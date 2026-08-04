@@ -87,7 +87,7 @@ with tab3:
         df = pd.read_csv("fuel_data.csv")
         st.markdown("### 📊 Summary Statistics")
 
-        # Calculate only the values you want
+        # Calculate key stats
         avg_fuel = df['Fuel_Consumption'].mean()
         avg_cost = df['Cost'].mean()
         max_distance = df['Distance'].max()
@@ -100,15 +100,23 @@ with tab3:
         col3.metric("Max Distance", f"{max_distance:.0f} km")
         col4.metric("Min Distance", f"{min_distance:.0f} km")
 
-        # Clean table
-        st.markdown("### 📑 Clean Table")
-        clean_stats = {
-            "Avg Fuel Consumption (L)": round(avg_fuel, 2),
-            "Avg Cost (₹)": round(avg_cost, 0),
-            "Max Distance (km)": int(max_distance),
-            "Min Distance (km)": int(min_distance)
+        # Build a clean table with proper labels and units
+        st.markdown("### 📑 Detailed Summary Table")
+        summary_data = {
+            "Metric": [
+                "Average Fuel Consumption",
+                "Average Cost",
+                "Maximum Distance",
+                "Minimum Distance"
+            ],
+            "Value": [
+                f"{avg_fuel:.2f} L",
+                f"₹{avg_cost:.0f}",
+                f"{max_distance:.0f} km",
+                f"{min_distance:.0f} km"
+            ]
         }
-        st.table(pd.DataFrame(clean_stats, index=["Values"]))
+        st.table(pd.DataFrame(summary_data))
 
     except FileNotFoundError:
         st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
