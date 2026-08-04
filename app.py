@@ -7,20 +7,11 @@ import matplotlib.dates as mdates
 # Page setup
 st.set_page_config(page_title="Eco Fuel Dashboard", page_icon="⛽", layout="wide")
 
-# Custom CSS for styling
+# Custom CSS
 st.markdown("""
     <style>
-    .main {
-        background-color: #f5f7fa;
-    }
-    h1 {
-        color: #2E86C1;
-        text-align: center;
-    }
-    .stDataFrame {
-        border: 2px solid #2E86C1;
-        border-radius: 10px;
-    }
+    .main { background-color: #f5f7fa; }
+    h1 { color: #2E86C1; text-align: center; }
     </style>
 """, unsafe_allow_html=True)
 
@@ -49,12 +40,9 @@ with tab2:
             fig, ax = plt.subplots(figsize=(6,4))
             sns.lineplot(data=df, x="Date", y="Fuel_Consumption", ax=ax, color="#1ABC9C", linewidth=2.5)
             ax.set_title("Fuel Consumption Trend", fontsize=14, color="#1ABC9C")
-
-            # Format x-axis dates
             ax.xaxis.set_major_locator(mdates.AutoDateLocator())
             ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
             plt.xticks(rotation=45)
-
             st.pyplot(fig)
 
         # Fuel cost plot
@@ -63,12 +51,9 @@ with tab2:
             fig2, ax2 = plt.subplots(figsize=(6,4))
             sns.lineplot(data=df, x="Date", y="Cost", ax=ax2, color="#E74C3C", linewidth=2.5)
             ax2.set_title("Fuel Cost Trend", fontsize=14, color="#E74C3C")
-
-            # Format x-axis dates
             ax2.xaxis.set_major_locator(mdates.AutoDateLocator())
             ax2.xaxis.set_major_formatter(mdates.DateFormatter("%b %d"))
             plt.xticks(rotation=45)
-
             st.pyplot(fig2)
 
         # Scatter plot
@@ -87,20 +72,19 @@ with tab3:
         df = pd.read_csv("fuel_data.csv")
         st.markdown("### 📊 Summary Statistics")
 
-        # Calculate key stats
         avg_fuel = df['Fuel_Consumption'].mean()
         avg_cost = df['Cost'].mean()
         max_distance = df['Distance'].max()
         min_distance = df['Distance'].min()
 
-        # Show metrics in cards
+        # Metrics
         col1, col2, col3, col4 = st.columns(4)
         col1.metric("Avg Fuel Consumption", f"{avg_fuel:.2f} L")
         col2.metric("Avg Cost", f"₹{avg_cost:.0f}")
         col3.metric("Max Distance", f"{max_distance:.0f} km")
         col4.metric("Min Distance", f"{min_distance:.0f} km")
 
-        # Build a clean table with proper labels and units
+        # Clean table
         st.markdown("### 📑 Detailed Summary Table")
         summary_data = {
             "Metric": [
