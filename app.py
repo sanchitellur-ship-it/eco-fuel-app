@@ -77,6 +77,7 @@ with tab2:
 with tab3:
     try:
         df = pd.read_csv("fuel_data.csv")
+          st.success("✅ Data loaded successfully!")
         st.markdown("### 📊 Summary Statistics")
 
         avg_fuel = df['Fuel_Consumption'].mean()
