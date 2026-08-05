@@ -4,29 +4,36 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.dates as mdates
 
-# Page setup
+# ---------------- Page Setup ----------------
 st.set_page_config(page_title="Eco Fuel Dashboard", page_icon="⛽", layout="wide")
 
-# Custom CSS
+# ---------------- Custom CSS ----------------
 st.markdown("""
     <style>
     .main { background-color: #f5f7fa; }
     h1 { color: #2E86C1; text-align: center; }
+    h2, h3 { color: #34495E; }
     </style>
 """, unsafe_allow_html=True)
 
-# Title
+# ---------------- Title ----------------
 st.title("🚗 Eco Fuel Dashboard")
 
-# Tabs
+# ---------------- Tabs ----------------
 tab1, tab2, tab3, tab4 = st.tabs(["Overview", "Charts", "Statistics", "GitHub"])
 
-# --- Overview Tab ---
+# ---------------- Overview Tab ----------------
 with tab1:
     st.markdown("### Welcome to the Eco Fuel Dashboard")
-    st.info("Track your fuel usage, costs, and efficiency with interactive charts.")
+    st.info("Track your fuel usage, costs, and efficiency with interactive charts and statistics.")
+    st.markdown("""
+        **Features:**
+        - 📈 Interactive charts for fuel consumption and costs  
+        - 📊 Summary statistics with metrics  
+        - 🔗 Direct link to GitHub repository  
+    """)
 
-# --- Charts Tab ---
+# ---------------- Charts Tab ----------------
 with tab2:
     try:
         df = pd.read_csv("fuel_data.csv")
@@ -66,7 +73,7 @@ with tab2:
     except FileNotFoundError:
         st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
 
-# --- Statistics Tab ---
+# ---------------- Statistics Tab ----------------
 with tab3:
     try:
         df = pd.read_csv("fuel_data.csv")
@@ -105,8 +112,11 @@ with tab3:
     except FileNotFoundError:
         st.error("❌ fuel_data.csv not found. Please upload it to the repo.")
 
-# --- GitHub Tab ---
+# ---------------- GitHub Tab ----------------
 with tab4:
     st.markdown("### 🔗 GitHub Repository")
     st.write("View the source code and contribute here:")
-    st.markdown("[Eco Fuel App Repository](https://github.com/YourRepoName)")
+    st.markdown(
+        '<a href="https://github.com/YourRepoName" target="_blank">🌐 Eco Fuel App Repository</a>',
+        unsafe_allow_html=True
+    )
