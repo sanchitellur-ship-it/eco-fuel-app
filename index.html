@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eco-Driver Mileage Checker</title>
+</head>
+<body>
+    <h1>Mileage Checker App</h1>
+    <form method="POST">
+        <!-- Mileage -->
+        <label for="mileage">{{ labels['mileage'] }}:</label>
+        <input type="number" name="mileage" id="mileage" required><br><br>
+
+        <!-- Language -->
+        <label for="language">{{ labels['language'] }}:</label>
+        <select name="language" id="language">
+            <option value="en" {% if lang=='en' %}selected{% endif %}>English</option>
+            <option value="kn" {% if lang=='kn' %}selected{% endif %}>Kannada</option>
+            <option value="ta" {% if lang=='ta' %}selected{% endif %}>Tamil</option>
+            <option value="te" {% if lang=='te' %}selected{% endif %}>Telugu</option>
+            <option value="ml" {% if lang=='ml' %}selected{% endif %}>Malayalam</option>
+            <option value="hi" {% if lang=='hi' %}selected{% endif %}>Hindi</option>
+            <option value="fr" {% if lang=='fr' %}selected{% endif %}>French</option>
+            <option value="es" {% if lang=='es' %}selected{% endif %}>Spanish</option>
+        </select><br><br>
+
+        <!-- Driver ID -->
+        <label for="driver_id">{{ labels['driver_id'] }}:</label>
+        <input type="text" name="driver_id" id="driver_id"><br><br>
+
+        <!-- Route ID -->
+        <label for="route_id">{{ labels['route_id'] }}:</label>
+        <input type="text" name="route_id" id="route_id" placeholder="e.g. Silk Board, Malleshwaram, R12"><br><br>
+
+        <!-- Fuel Type -->
+        <label for="fuel_type">{{ labels['fuel_type'] }}:</label>
+        <select name="fuel_type" id="fuel_type">
+            <option value="Diesel">Diesel</option>
+            <option value="CNG">CNG</option>
+            <option value="Petrol">Petrol</option>
+            <option value="Electric">Electric</option>
+        </select><br><br>
+
+        <!-- Idling Time -->
+        <label for="idling_time">{{ labels['idling_time'] }}:</label>
+        <input type="number" name="idling_time" id="idling_time"><br><br>
+
+        <!-- Average Speed -->
+        <label for="avg_speed">{{ labels['avg_speed'] }}:</label>
+        <input type="number" name="avg_speed" id="avg_speed"><br><br>
+
+        <button type="submit">Get Recommendation</button>
+    </form>
+
+    {% if tip %}
+        <h2>Result (English): {{ tip }}</h2>
+        <h2>Translated: {{ translated_tip }}</h2>
+
+        <!-- ✅ Eco-Driver Index Results -->
+        {% if record %}
+        <h3>Eco-Driver Metrics</h3>
+        <ul>
+            <li>Mileage (km/L): {{ record['Mileage_km_per_l'] }}</li>
+            <li>Carbon Intensity (g/km): {{ record['Carbon_Intensity_g_per_km'] }}</li>
+            <li>Composite Eco-Score: {{ record['Composite_Eco_Score']|int }}/50</li>
+        </ul>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
