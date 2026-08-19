@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import os
 import pandas as pd
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="feul_app/templates")
 
 # Existing translations for tips
 translations = {
